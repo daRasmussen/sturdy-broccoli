@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+/* import App from './App'; */
 import reportWebVitals from './reportWebVitals';
 import ReactFCCtest from 'react-fcctest'; 
+import Calculator from './Calculator/Calculator';
 
 ReactDOM.render(
   <React.StrictMode>
     <ReactFCCtest />
-    <App />
+    <Calculator />
   </React.StrictMode>,
   document.getElementById('root')
 );
