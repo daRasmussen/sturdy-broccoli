@@ -1,5 +1,6 @@
 import './scss/calc.scss';
 import React from 'react';
+import Btn from '../Btn/Btn'
 
 class Calculator extends React.Component {
     static state = {};
@@ -16,6 +17,10 @@ class Calculator extends React.Component {
         this.nin = this.nin.bind(this);
         this.opi = this.opi.bind(this);
         this.eq = this.eq.bind(this);
+    }
+
+    get author() {
+        return this.#author;
     }
 
     pi(n) {
@@ -47,7 +52,7 @@ class Calculator extends React.Component {
         })
     }
 
-    eq(e) {
+    eq() {
         const {state: {current: c}} = this;
         this.setState({
             // eslint-disable-next-line no-eval
@@ -56,9 +61,15 @@ class Calculator extends React.Component {
     }
 
     render() {
+
         return (
             <div id="Calculator">
                 <h1>This is a Calculator</h1>
+                <Btn
+                    id="equals"
+                    sign="="
+                    onClick={this.eq}
+                />
             </div>
         )
     }
