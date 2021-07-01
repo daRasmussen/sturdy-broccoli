@@ -1,15 +1,18 @@
 import './scss/btn.scss'
+import React from 'react';
 
-function Btn(props) {
-    const { id , onClick, sign } = props;
-    return (
-        <div
-            id={id}
-            onClick={onClick}
-        >
-            {sign}
-        </div>
-    )
+class Btn extends React.Component {
+    #author = 'drGeo'
+    render()  {
+        const { props: {id, onClick, sign}} = this
+        return (
+            <div
+                id={id}
+                onClick={onClick}
+            >
+                {sign}
+            </div>
+        )
+    }
 }
-
 export default Btn;

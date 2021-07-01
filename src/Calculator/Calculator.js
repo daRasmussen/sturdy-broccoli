@@ -1,17 +1,67 @@
 import './scss/calc.scss';
-import Btn from '../Btn/Btn'
+import React from 'react';
 
-const signChar = '+'
-const id = "plusBtn"
-const alert = () => alert('test')
+class Calculator extends React.Component {
+    static state = {};
+    #author = "drGeo";
 
-function Calculator() {
-    return (
-        <div className="Calculator">
-            <h1>This is a Calculator</h1>
-            <Btn id={id} sign={signChar} onClick={alert} />
-        </div>
-    )
+    constructor(props) {
+        super(props);
+        this.state = {
+            initial: 0,
+            current: 0
+        }
+
+        this.cls = this.cls.bind(this);
+        this.nin = this.nin.bind(this);
+        this.opi = this.opi.bind(this);
+        this.eq = this.eq.bind(this);
+    }
+
+    pi(n) {
+        const base = 10;
+        return Number.parseInt(n, base);
+    }
+
+    cls() {
+        this.setState({
+            current: this.state.initial
+        })
+    }
+
+    nin(e) {
+        const {target: {innerHTML: value}} = e;
+        const {pi, state: {current: c, initial: i}} = this;
+
+        this.setState({
+            current: pi(c) === pi(i) ? value : pi(c) + pi(value)
+        })
+    }
+
+    opi(e) {
+        const {target: {innerHTML: v}} = e;
+        const {state: {current: c}} = this;
+
+        this.setState({
+            current: c + v
+        })
+    }
+
+    eq(e) {
+        const {state: {current: c}} = this;
+        this.setState({
+            // eslint-disable-next-line no-eval
+            current: eval(c)
+        })
+    }
+
+    render() {
+        return (
+            <div id="Calculator">
+                <h1>This is a Calculator</h1>
+            </div>
+        )
+    }
 }
 
-export default Calculator;
+export default Calculator 
