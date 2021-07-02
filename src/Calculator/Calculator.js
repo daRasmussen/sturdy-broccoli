@@ -21,12 +21,12 @@ class Calculator extends React.Component {
         return this.#author;
     }
 
-
     render() {
+
         return (
             <div id="Calculator">
-                <Display/>
-                <Numbers/>
+                <Display update="OVERRIDE MESSAGE" />
+                <Numbers />
                 <Controls/>
             </div>
         )

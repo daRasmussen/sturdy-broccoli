@@ -23,7 +23,7 @@ class Numbers extends React.Component {
         super(props)
         this.state = {
             history: [],
-            previous: 0
+            previous: 0,
         }
 
         this.opi = this.opi.bind(this);
@@ -45,7 +45,7 @@ class Numbers extends React.Component {
     get previous() {
         return this.state.previous;
     }
-
+    
     opi(e) {
         const {target: {innerHTML: v}} = e;
         const {state: {history: h}} = this;
@@ -53,6 +53,9 @@ class Numbers extends React.Component {
         this.setState({
             previous: v
         })
+        console.log('history: ', this.state.history)
+        console.log('previous: ', this.state.previous)
+        console.log('current: ', this.current)
     }
 
     render() {
