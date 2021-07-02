@@ -1,4 +1,4 @@
-import './scss/numbers.scss'
+import './scss/Numbers.scss'
 import React from 'react'
 import Btn from '../Btn/Btn'
 
@@ -27,6 +27,10 @@ class Numbers extends React.Component {
         }
 
         this.opi = this.opi.bind(this);
+    }
+
+    get author() {
+        return this.#author;
     }
 
     get current() {

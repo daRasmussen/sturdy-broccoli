@@ -1,4 +1,4 @@
-import './scss/btn.scss'
+import './scss/Btn.scss'
 import React from 'react'
 
 class Btn extends React.Component {
@@ -8,7 +8,7 @@ class Btn extends React.Component {
         const {props: {id, onClick, sign, className}} = this
         return (
             <div
-                className={className}
+                className={[className, 'btn'].join(' ')}
                 id={id}
                 onClick={onClick}
             >
