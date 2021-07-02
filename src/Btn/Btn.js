@@ -1,12 +1,14 @@
 import './scss/btn.scss'
-import React from 'react';
+import React from 'react'
 
 class Btn extends React.Component {
     #author = 'drGeo'
-    render()  {
-        const { props: {id, onClick, sign}} = this
+
+    render() {
+        const {props: {id, onClick, sign, className}} = this
         return (
             <div
+                className={className}
                 id={id}
                 onClick={onClick}
             >
@@ -15,4 +17,5 @@ class Btn extends React.Component {
         )
     }
 }
+
 export default Btn;

@@ -1,6 +1,9 @@
-.Calculator {
+#Calculator {
   background: #282c34;
   color: whitesmoke;
   width: 50%;
   margin: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
+
 }

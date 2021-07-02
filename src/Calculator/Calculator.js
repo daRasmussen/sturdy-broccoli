@@ -1,6 +1,7 @@
 import './scss/calc.scss';
 import React from 'react';
 import Btn from '../Btn/Btn'
+import Numbers from '../Numbers/Numbers'
 
 class Calculator extends React.Component {
     static state = {};
@@ -70,6 +71,7 @@ class Calculator extends React.Component {
                     sign="="
                     onClick={this.eq}
                 />
+                <Numbers />
             </div>
         )
     }
