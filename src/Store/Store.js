@@ -10,6 +10,14 @@ class Store {
     constructor() {
         this.store = configureStore(root)
     }
+
+    get author() {
+        return this.#author;
+    }
+
+    get reducers() {
+        return Store.reducers;
+    }
 }
 
 export default Store

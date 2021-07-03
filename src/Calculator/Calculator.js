@@ -3,42 +3,15 @@ import React from 'react';
 import Display from '../Display/Display'
 import Numbers from '../Numbers/Numbers'
 import Controls from '../Controls/Controls'
+import Store from '../Store/Store'
+import { Provider } from 'react-redux';
 
-import { Provider } from 'react-redux'
-
-import { configureStore } from '@reduxjs/toolkit'
-
-const ADD = 'ADD';
-
-const addMessage = (message) => {
-    return {
-        type: ADD,
-        message
-    }
-}
-
-const reducer = (state = [], action) => {
-    const {type, message} = action;
-    switch (type) {
-        case ADD:
-            return [
-                ...state,
-                message
-            ];
-        default:
-            return state;
-    }
-};
-
-const store = configureStore({
-    reducer
-});
-
+const {store: s} = new Store();
 
 class Calculator extends React.Component {
     static state = {};
     #author = "drGeo";
-    
+
     get author() {
         return this.#author;
     }
@@ -47,7 +20,7 @@ class Calculator extends React.Component {
 
         return (
             <div id="Calculator">
-                <Provider store={store}>
+                <Provider store={s}>
                     <Display/>
                 </Provider>
                 <Numbers/>
