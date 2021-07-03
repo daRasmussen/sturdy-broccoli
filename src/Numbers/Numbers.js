@@ -17,15 +17,18 @@ const nbrIds = [
 
 class Numbers extends React.Component {
     static state = {}
+    static className = 'numbers'
     #author = 'drGeo'
 
     constructor(props) {
         super(props)
         this.state = {
+            input: ''
+        }
+        this.state = {
             history: [],
             previous: 0,
         }
-
         this.opi = this.opi.bind(this);
     }
 
@@ -59,7 +62,7 @@ class Numbers extends React.Component {
     }
 
     render() {
-        return nbrIds.map((nbr, index) => <Btn className="numbers" id={nbr} key={nbr} sign={index} onClick={this.opi}/>)
+        return nbrIds.map((nbr, index) => <Btn className={Numbers.className} id={nbr} key={nbr} sign={index} onClick={this.opi}/>)
     }
 }
 

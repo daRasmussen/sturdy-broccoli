@@ -1,7 +1,9 @@
 import React from 'react'
+import Btn from '../Btn/Btn'
 
 class Display extends React.Component {
     #author = "drGeo"
+    static id = "display"
 
     constructor(props) {
         super(props)
@@ -25,10 +27,16 @@ class Display extends React.Component {
 
     render() {
         return (
-            <div id="display">
+            <div id={Display.id}>
                 <input
                     value={this.state.input}
                     onChange={this.change}
+                />
+                <Btn
+                    id="test"
+                    key="test"
+                    sign="SUBMIT"
+                    onClick={this.change}
                 />
             </div>
         )
