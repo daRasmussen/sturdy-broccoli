@@ -7,26 +7,54 @@ class Display extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            display: "This is a Calculator"
+            input: '',
+            messages: []
         }
 
-        this.update = this.update.bind(this)
+        this.change = this.change.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     get author() {
         return this.#author;
     }
 
-    update(display) {
+    change(event) {
         this.setState({
-            display
+            input: event.target.value
+        })
+    }
+
+    submit() {
+        const {state: { input: c }} = this;
+        this.setState({
+            input: '',
+            messages: this.state.messages.concat(c)
         })
     }
 
     render() {
         return (
             <div id="display">
-                {this.state.display}
+                <h2>Type in a new Message: </h2>
+                <input
+                    value={this.state.input}
+                    onChange={this.change}
+                />
+                <button
+                    onClick={this.submit}
+                >
+                    Submit
+                </button>
+                <ul>
+                    {
+                        this.state.messages.map((message, idx) => {
+                            return (
+                                <li key={idx}>{message}</li>
+                            )
+                        })
+                    }
+                </ul>
             </div>
         )
     }

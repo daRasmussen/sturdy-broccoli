@@ -39,8 +39,8 @@ class Controls extends React.Component {
                     onClick={this.handle}
                 />
                 <Btn
-                    id="sub"
-                    key="sub"
+                    id="subtract"
+                    key="subtract"
                     sign="-"
                     onClick={this.handle}
                 />
@@ -54,6 +54,18 @@ class Controls extends React.Component {
                     id="divide"
                     key="divide"
                     sign="/"
+                    onClick={this.handle}
+                />
+                <Btn
+                    id="decimal"
+                    key="decimal"
+                    sign="."
+                    onClick={this.handle}
+                />
+                <Btn
+                    id="clear"
+                    key="clear"
+                    sign="AC"
                     onClick={this.handle}
                 />
             </div>

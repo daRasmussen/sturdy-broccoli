@@ -7,13 +7,13 @@ class Btn extends React.Component {
     render() {
         const {props: {id, onClick, sign, className}} = this
         return (
-            <div
+            <button
                 className={[className, 'btn'].join(' ')}
                 id={id}
                 onClick={onClick}
             >
                 {sign}
-            </div>
+            </button>
         )
     }
 }
