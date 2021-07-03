@@ -8,7 +8,9 @@ class Store {
     static reducers = [root]
 
     constructor() {
-        this.store = configureStore(root)
+        this.store = configureStore({
+            reducer: root
+        })
     }
 
     get author() {

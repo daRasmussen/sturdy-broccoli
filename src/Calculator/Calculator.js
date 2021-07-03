@@ -22,9 +22,9 @@ class Calculator extends React.Component {
             <div id="Calculator">
                 <Provider store={s}>
                     <Display/>
+                    <Numbers/>
+                    <Controls/>
                 </Provider>
-                <Numbers/>
-                <Controls/>
             </div>
         )
     }
