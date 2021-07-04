@@ -30,7 +30,7 @@ class Calculator extends React.Component {
         const {state: {currentValue, formula}, initialize} = this;
         return (
             <div id={id} className={className}>
-                <h1>{test}</h1>
+                <h1 id="test">{test}</h1>
                 <Formula formula={formula}/>
                 <Display currentValue={currentValue}/>
                 <Buttons

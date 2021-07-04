@@ -12,7 +12,7 @@ class Author extends React.Component {
         const { id, className, test, href, target, alias } = Author;
         return (
             <div id={id} className={className}>
-                <h1>{test}</h1>
+                <h1 id="test">{test}</h1>
                 <a href={href} target={target}>
                     <code>{alias}</code>
                 </a>

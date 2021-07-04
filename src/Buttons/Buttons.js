@@ -13,7 +13,7 @@ class Buttons extends React.Component {
         const {className, test} = Buttons;
         return (
             <div className={className}>
-                <h1>{test}</h1>
+                <h1 id="test">{test}</h1>
                 <button
                     className={className}
                     id="clear"

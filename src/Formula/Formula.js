@@ -14,7 +14,7 @@ class Formula extends React.Component {
         const { className, test } = Formula;
         return (
             <div className={className}>
-                <h1>{test}</h1>
+                <h1 id="test">{test}</h1>
                 {this.props.formula}
             </div>
         )

@@ -10,7 +10,7 @@ class Display extends React.Component {
         const {id, className, test} = Display;
         return (
             <div id={id} className={className}>
-                <h1>{test}</h1>
+                <h1 id="test">{test}</h1>
                 {this.props.currentValue}
             </div>
         )
