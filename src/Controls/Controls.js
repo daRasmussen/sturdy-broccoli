@@ -4,7 +4,7 @@ import Btn from '../Btn/Btn'
 
 const utils_init_constants = (C, N) => {
     let re = new RegExp(/\W+/);
-    const { name, sign} = re.test(N) ? C[N] : C[N.toUpperCase()]
+    const {name, sign} = re.test(N) ? C[N] : C[N.toUpperCase()]
 
     return {
         id: name,
@@ -25,7 +25,7 @@ class Controls extends React.Component {
     static multiply = utils_init_constants(this, 'MULTIPLY');
     static DIVIDE = {name: 'divide', sign: '/'}
     static divide = utils_init_constants(this, 'DIVIDE');
-    static DECIMAL = {name: 'decimal', sign: '/'}
+    static DECIMAL = {name: 'decimal', sign: '.'}
     static decimal = utils_init_constants(this, 'DECIMAL');
     static CLEAR = {name: 'clear', sign: 'AC'}
     static clear = utils_init_constants(this, 'CLEAR');
