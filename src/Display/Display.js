@@ -1,5 +1,7 @@
 import React from 'react'
 import Btn from '../Btn/Btn'
+import Numbers from "../Numbers/Numbers";
+import Controls from "../Controls/Controls";
 
 class Display extends React.Component {
     #author = "drGeo"
@@ -13,6 +15,7 @@ class Display extends React.Component {
         }
 
         this.change = this.change.bind(this);
+        this.do = this.do.bind(this);
     }
 
     get author() {
@@ -25,18 +28,19 @@ class Display extends React.Component {
         })
     }
 
+    do(event) {
+        const { target : { textContent : input}} = event;
+        this.setState({
+            input
+        })
+    }
+
     render() {
         return (
             <div id={Display.id}>
                 <input
                     value={this.state.input}
                     onChange={this.change}
-                />
-                <Btn
-                    id="test"
-                    key="test"
-                    sign="SUBMIT"
-                    onClick={this.change}
                 />
             </div>
         )

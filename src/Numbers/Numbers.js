@@ -1,6 +1,7 @@
 import './scss/Numbers.scss'
 import React from 'react'
 import Btn from '../Btn/Btn'
+import {useSelector} from "react-redux";
 
 const nbrIds = [
     "zero",
@@ -48,7 +49,7 @@ class Numbers extends React.Component {
     get previous() {
         return this.state.previous;
     }
-    
+
     opi(e) {
         const {target: {innerHTML: v}} = e;
         const {state: {history: h}} = this;
@@ -62,7 +63,8 @@ class Numbers extends React.Component {
     }
 
     render() {
-        return nbrIds.map((nbr, index) => <Btn className={Numbers.className} id={nbr} key={nbr} sign={index} onClick={this.opi}/>)
+        return nbrIds.map((nbr, index) => <Btn className={Numbers.className} id={nbr} key={nbr} sign={index}
+                                               onClick={this.opi}/>)
     }
 }
 
