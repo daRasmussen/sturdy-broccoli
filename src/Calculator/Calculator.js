@@ -1,32 +1,42 @@
 import './scss/Calculator.scss';
 import React from 'react';
-import {Provider, connect} from 'react-redux';
+import Formula from "../Formula/Formula";
 import Display from "../Display/Display";
-import Store from "../Store/Store";
-
-import mapStateToProps from '../Store/mapStateToProps'
-import mapDispatchToProps from '../Store/mapDispatchToProps'
-
-const {store: s} = new Store();
-
-const D = connect(mapStateToProps, mapDispatchToProps)(Display)
+import Buttons from '../Buttons/Buttons';
+import Author from '../Author/Author';
 
 class Calculator extends React.Component {
-    #author = "drGeo";
-    static id = "Calculator"
-    static test = "This is a Calculator"
-    get author() {
-        return this.#author;
+    static id = "Calculator";
+    static className = "app";
+    static test = "This is a Calculator";
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentValue: '123',
+            formula: '010'
+        }
+        this.initialize = this.initialize.bind(this);
+    }
+
+    initialize() {
+        this.setState({
+            currentValue: 'HELLO WORLD!'
+        })
     }
 
     render() {
-        const { id, test } = Calculator;
+        const {id, test, className} = Calculator;
+        const {state: {currentValue, formula}, initialize} = this;
         return (
-            <div id={id}>
+            <div id={id} className={className}>
                 <h1>{test}</h1>
-                <Provider store={s}>
-                    <D />
-                </Provider>
+                <Formula formula={formula}/>
+                <Display currentValue={currentValue}/>
+                <Buttons
+                    initialize={initialize}
+                />
+                <Author />
             </div>
         )
     }

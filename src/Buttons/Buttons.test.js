@@ -1,9 +1,9 @@
 import {render, screen} from '@testing-library/react';
-import Display from "./Display";
+import Buttons from "./Buttons";
 
-test('renders Display', () => {
-    const { test } = Display;
-    render(<Display />);
+test('renders Buttons', () => {
+    const {test} = Buttons;
+    render(<Buttons/>);
     const textElement = screen.getByText(test);
     expect(textElement).toBeInTheDocument();
 });
