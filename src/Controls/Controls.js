@@ -35,19 +35,19 @@ class Controls extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            history: [],
-            previous: ""
-        }
-        this.handle.bind(this)
+        this.submit.bind(this)
     }
 
     get author() {
         return this.#author;
     }
 
-    handle(e) {
-        console.log('HANDLE EVENT!')
+    submit(e) {
+        const input = 'HELLO WORLD';
+        this.props.submitNewMessage(this.state.input)
+        this.setState({
+            input
+        })
     }
 
     render() {
@@ -57,43 +57,43 @@ class Controls extends React.Component {
                     id={Controls.equals.id}
                     key={Controls.equals.key}
                     sign={Controls.equals.sign}
-                    onClick={this.handle}
+                    onClick={this.submit}
                 />
                 <Btn
                     id={Controls.add.id}
                     key={Controls.add.key}
                     sign={Controls.add.sign}
-                    onClick={this.handle}
+                    onClick={this.submit}
                 />
                 <Btn
                     id={Controls.subtract.id}
                     key={Controls.subtract.key}
                     sign={Controls.subtract.sign}
-                    onClick={this.handle}
+                    onClick={this.submit}
                 />
                 <Btn
                     id={Controls.multiply.id}
                     key={Controls.multiply.key}
                     sign={Controls.multiply.sign}
-                    onClick={this.handle}
+                    onClick={this.submit}
                 />
                 <Btn
                     id={Controls.divide.id}
                     key={Controls.divide.key}
                     sign={Controls.divide.sign}
-                    onClick={this.handle}
+                    onClick={this.submit}
                 />
                 <Btn
                     id={Controls.decimal.id}
                     key={Controls.decimal.key}
                     sign={Controls.decimal.sign}
-                    onClick={this.handle}
+                    onClick={this.submit}
                 />
                 <Btn
                     id={Controls.clear.id}
                     key={Controls.clear.key}
                     sign={Controls.clear.sign}
-                    onClick={this.handle}
+                    onClick={this.submit}
                 />
             </div>
         )

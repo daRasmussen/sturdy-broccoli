@@ -2,7 +2,7 @@ const ADD = 'ADD';
 const SUB = 'SUB';
 
 const root = (state, action) => {
-    const { type, message } = action
+    const { type, message } = action;
     switch(type) {
         case ADD:
             return [
