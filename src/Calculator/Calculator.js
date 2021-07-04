@@ -1,15 +1,17 @@
 import './scss/Calculator.scss';
 import React from 'react';
-import Display from '../Display/Display'
-import Store from '../Store/Store'
-import { Provider } from 'react-redux';
-import Numbers from "../Numbers/Numbers";
-import Controls from "../Controls/Controls";
+import {Provider, connect} from 'react-redux';
+import Display from "../Display/Display";
+import Store from "../Store/Store";
+
+import mapStateToProps from '../Store/mapStateToProps'
+import mapDispatchToProps from '../Store/mapDispatchToProps'
 
 const {store: s} = new Store();
 
+const Container = connect(mapStateToProps, mapDispatchToProps)(Display)
+
 class Calculator extends React.Component {
-    static state = {};
     #author = "drGeo";
 
     get author() {
@@ -19,10 +21,9 @@ class Calculator extends React.Component {
     render() {
         return (
             <div id="Calculator">
+                <h1>This is a Calculator</h1>
                 <Provider store={s}>
-                    <Display/>
-                    <Numbers />
-                    <Controls/>
+                    <Container/>
                 </Provider>
             </div>
         )
