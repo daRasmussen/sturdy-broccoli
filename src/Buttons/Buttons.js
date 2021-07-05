@@ -2,13 +2,8 @@ import React from 'react';
 import './scss/Buttons.scss';
 
 class Buttons extends React.Component {
-    #author = 'drGeo'
     static className = 'buttons';
     static test = 'This is the Buttons';
-
-    get author() {
-        return this.#author;
-    }
 
     render() {
         const {className, test} = Buttons;
@@ -40,7 +35,15 @@ class Buttons extends React.Component {
                 >
                     C
                 </button>
-
+                <button id="four" onClick={this.props.numbers} value="4">
+                    4
+                </button>
+                <button id="five" onClick={this.props.numbers} value="5">
+                    5
+                </button>
+                <button id="six" onClick={this.props.numbers} value="6">
+                    6
+                </button>
                 <button
                     id="multiply"
                     className={[className, 'operator'].join(" ")}
@@ -48,6 +51,37 @@ class Buttons extends React.Component {
                     value="x"
                 >
                     x
+                </button>
+                <button id="one" onClick={this.props.numbers} value="1">
+                    1
+                </button>
+                <button id="two" onClick={this.props.numbers} value="2">
+                    2
+                </button>
+                <button id="three" onClick={this.props.numbers} value="3">
+                    3
+                </button>
+                <button
+                    id="subtract"
+                    className={[className, 'operator'].join(" ")}
+                    onClick={this.props.initialize}
+                    value="-"
+                >
+                    -
+                </button>
+                <button id="zero" onClick={this.props.numbers} value="0">
+                    0
+                </button>
+                <button id="decimal" onClick={this.props.decimal} value=".">
+                    .
+                </button>
+                <button
+                    id="percent"
+                    className={[className, 'operator'].join(" ")}
+                    onClick={this.props.initialize}
+                    value="%"
+                >
+                    %
                 </button>
                 <button
                     id="add"
@@ -58,12 +92,12 @@ class Buttons extends React.Component {
                     +
                 </button>
                 <button
-                    id="subtract"
+                    id="equals"
                     className={[className, 'operator'].join(" ")}
                     onClick={this.props.initialize}
-                    value="-"
+                    value="="
                 >
-                    -
+                    =
                 </button>
             </div>
         )
