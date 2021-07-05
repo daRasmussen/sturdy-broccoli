@@ -13,15 +13,29 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentValue: '123',
-            formula: '010'
+            currentValue: '0',
+            previousValue: '0',
+            formula: '0'
         }
+        this.maxWarn = this.maxWarn.bind(this);
         this.initialize = this.initialize.bind(this);
+    }
+
+    maxWarn() {
+        const { state: { currentValue, previousValue}} = this;
+        this.setState({
+            currentValue: 'LIMIT MET!',
+            previousValue: currentValue
+        });
+        setTimeout(() => this.setState({
+            currentValue: previousValue
+        }), 1000)
     }
 
     initialize() {
         this.setState({
-            currentValue: 'HELLO WORLD!'
+            currentValue: '0',
+            formula: ''
         })
     }
 
@@ -36,7 +50,7 @@ class Calculator extends React.Component {
                 <Buttons
                     initialize={initialize}
                 />
-                <Author />
+                <Author/>
             </div>
         )
     }

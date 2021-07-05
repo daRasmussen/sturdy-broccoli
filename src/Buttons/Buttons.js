@@ -15,12 +15,44 @@ class Buttons extends React.Component {
             <div className={className}>
                 <h1 id="test">{test}</h1>
                 <button
-                    className={className}
                     id="clear"
+                    className={[className, 'ac'].join(" ")}
                     onClick={this.props.initialize}
                     value="AC"
                 >
                     AC
+                </button>
+                <button
+                    id="divide"
+                    className={[className, 'operator'].join(" ")}
+                    onClick={this.props.initialize}
+                    value="/"
+                >
+                    /
+                </button>
+                <button
+                    id="multiply"
+                    className={[className, 'operator'].join(" ")}
+                    onClick={this.props.initialize}
+                    value="x"
+                >
+                    x
+                </button>
+                <button
+                    id="add"
+                    className={[className, 'operator'].join(" ")}
+                    onClick={this.props.initialize}
+                    value="+"
+                >
+                    +
+                </button>
+                <button
+                    id="subtract"
+                    className={[className, 'operator'].join(" ")}
+                    onClick={this.props.initialize}
+                    value="-"
+                >
+                    -
                 </button>
             </div>
         )
