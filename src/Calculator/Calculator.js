@@ -82,7 +82,12 @@ class Calculator extends React.Component {
     }
 
     operators(e) {
-
+        const _ = this;
+        const {state: {formula: f, previousValue: p, evaluated}} = _;
+        _.limitCheck(function() {
+            const {limitInt, isOperator, isDecimal} = Calculator;
+            const {target: {value: incoming}} = e;
+        });
     }
 
     initialize() {
