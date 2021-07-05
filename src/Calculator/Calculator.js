@@ -48,22 +48,6 @@ class Calculator extends React.Component {
         }), 1000)
     }
 
-    verbose_decimal_formal_If(f, c, incoming, isDecimal) {
-        if (c === '0' && incoming === '0') {
-            if (f === '') {
-                return incoming
-            } else {
-                return f
-            }
-        } else {
-            if (isDecimal.test(f)) {
-                return f.slice(0, -1) + incoming
-            } else {
-                return f + incoming
-            }
-        }
-    }
-
     decimal(e) {
         const _ = this;
         const {state: {formula: f, currentValue: c, evaluated}} = _;
@@ -92,9 +76,9 @@ class Calculator extends React.Component {
                             : isDecimal.test(f)
                             ? f.slice(0, -1) + incoming
                             : f + incoming
-                })
+                });
             }
-        })
+        });
     }
 
     operators(e) {
