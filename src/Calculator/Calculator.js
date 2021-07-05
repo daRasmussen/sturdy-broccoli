@@ -1,13 +1,9 @@
-import "./scss/Calculator.scss";
-
-import React from "react";
-
+import './scss/Calculator.scss';
+import React from 'react';
 import Formula from "../Formula/Formula";
 import Display from "../Display/Display";
-import Buttons from "../Buttons/Buttons";
-import Author from "../Author/Author";
-
-import verbose_decimal_formal_If from "./utils/decimal/formula/verbose_If.js"
+import Buttons from '../Buttons/Buttons';
+import Author from '../Author/Author';
 
 class Calculator extends React.Component {
     static id = "Calculator";
@@ -52,6 +48,22 @@ class Calculator extends React.Component {
         }), 1000)
     }
 
+    verbose_decimal_formal_If(f, c, incoming, isDecimal) {
+        if (c === '0' && incoming === '0') {
+            if (f === '') {
+                return incoming
+            } else {
+                return f
+            }
+        } else {
+            if (isDecimal.test(f)) {
+                return f.slice(0, -1) + incoming
+            } else {
+                return f + incoming
+            }
+        }
+    }
+
     decimal(e) {
         const _ = this;
         const {state: {formula: f, currentValue: c, evaluated}} = _;
@@ -72,7 +84,14 @@ class Calculator extends React.Component {
                     currentValue: c === '0' || isOperator.test(c)
                         ? incoming
                         : c + incoming,
-                    formula: verbose_decimal_formal_If(f, c, incoming, isDecimal)
+                    formula:
+                        c === '0' && incoming === '0'
+                            ? f === ''
+                              ? incoming
+                              : f
+                            : isDecimal.test(f)
+                            ? f.slice(0, -1) + incoming
+                            : f + incoming
                 })
             }
         })
