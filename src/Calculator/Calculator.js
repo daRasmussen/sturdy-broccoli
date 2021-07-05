@@ -1,9 +1,13 @@
-import './scss/Calculator.scss';
-import React from 'react';
+import "./scss/Calculator.scss";
+
+import React from "react";
+
 import Formula from "../Formula/Formula";
 import Display from "../Display/Display";
-import Buttons from '../Buttons/Buttons';
-import Author from '../Author/Author';
+import Buttons from "../Buttons/Buttons";
+import Author from "../Author/Author";
+
+import verbose_decimal_formal_If from "./utils/decimal/formula/verbose_If.js"
 
 class Calculator extends React.Component {
     static id = "Calculator";
@@ -16,61 +20,72 @@ class Calculator extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this
-            .state = {
+        this.state = {
             currentValue: '0',
             previousValue: '0',
-            history: [],
             formula: '0'
         }
         this.initialize = this.initialize.bind(this);
-        this.handleNumbers = this.handleNumbers.bind(this);
+        this.decimal = this.decimal.bind(this);
         this.maxWarn = this.maxWarn.bind(this);
+        this.operators = this.operators.bind(this);
+    }
+
+    limitCheck(fn) {
+        const _ = this;
+        const {limitText} = Calculator;
+        const {state: {currentValue}} = _;
+        if (currentValue.includes(limitText) === false) {
+            fn();
+        }
     }
 
     maxWarn() {
-        const {state: {currentValue, previousValue}} = this;
+        const {state: {currentValue: c, previousValue: p}} = this;
         const {limitText} = Calculator;
         this.setState({
             currentValue: limitText,
-            previousValue: currentValue
+            previousValue: c
         });
         setTimeout(() => this.setState({
-            currentValue: previousValue
+            currentValue: p
         }), 1000)
     }
 
-    handleNumbers(e) {
+    decimal(e) {
         const _ = this;
-        const {limitText, limitInt} = Calculator;
-        const {state: {currentValue, evaluated}} = _;
-        if (currentValue.includes(limitText) === false) {
-            const {target: {value: currentValue}} = e;
-            const {length} = currentValue;
+        const {state: {formula: f, currentValue: c, evaluated}} = _;
+        _.limitCheck(function () {
+            const {limitInt, isOperator, isDecimal} = Calculator;
+            const {target: {value: incoming}} = e;
+            const {length} = incoming;
             _.setState({evaluated: false})
             if (length > limitInt) {
                 _.maxWarn();
             } else if (evaluated) {
                 _.setState({
-                    currentValue,
-                    formula: currentValue !== '0' ? currentValue : ''
+                    currentValue: incoming,
+                    formula: incoming !== '0' ? incoming : ''
                 });
             } else {
-                // const {isOperator, isDecimal} = Calculator;
                 _.setState({
-                    currentValue,
-                    formula: currentValue
+                    currentValue: c === '0' || isOperator.test(c)
+                        ? incoming
+                        : c + incoming,
+                    formula: verbose_decimal_formal_If(f, c, incoming, isDecimal)
                 })
             }
-        }
+        })
+    }
+
+    operators(e) {
+
     }
 
     initialize() {
         this.setState({
             currentValue: '0',
             previousValue: '0',
-            history: [],
             formula: '',
             evaluated: false
         })
@@ -78,7 +93,7 @@ class Calculator extends React.Component {
 
     render() {
         const {id, test, className} = Calculator;
-        const {state: {currentValue, formula}, initialize, handleNumbers} = this;
+        const {state: {currentValue, formula}, initialize, decimal, operators} = this;
         return (
             <div id={id} className={className}>
                 <h1 id="test">{test}</h1>
@@ -86,7 +101,8 @@ class Calculator extends React.Component {
                 <Display currentValue={currentValue}/>
                 <Buttons
                     initialize={initialize}
-                    decimal={handleNumbers}
+                    decimal={decimal}
+                    operators={operators}
                 />
                 <Author/>
             </div>
