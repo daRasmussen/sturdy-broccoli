@@ -15,6 +15,8 @@ class Calculator extends React.Component {
     static isDecimal = /([^.0-9]0|^0)$/;
     static endsWithOperator = /[x+‑/]$/;
     static endsWithNegativeSign = /\d[x/+‑]‑$/;
+    static decimalOperator = /(-?\d+\.?\d*)$/;
+    _ = this;
 
     constructor(props) {
         super(props);
@@ -27,6 +29,7 @@ class Calculator extends React.Component {
         this.decimal = this.decimal.bind(this);
         this.maxWarn = this.maxWarn.bind(this);
         this.operators = this.operators.bind(this);
+        this.handleDecimal = this.handleDecimal.bind(this);
     }
 
     limitCheck(fn) {
@@ -122,9 +125,38 @@ class Calculator extends React.Component {
         })
     }
 
+    handleDecimal() {
+        const { decimalOperator, endsWithOperator } = Calculator;
+        const _ = this;
+        const { state: { currentValue: c, formula: f, evaluated: _eval }} = _;
+        if(_eval === true ) {
+            _.setState({
+                currentValue: '0',
+                formula: '0.',
+                evaluated: false
+            });
+        } else if (!c.includes('.') &&!c.includes('Limit')) {
+            _.setState({ evaluated: false });
+            if(c.length > 21) {
+                _.maxWarn();
+            } else if (endsWithOperator.test(f) || (c === '0' && f === '')) {
+                _.setState({
+                    currentValue: '0.',
+                    formula: f + '0.'
+                });
+            } else {
+                _.setState({
+                    currentValue: f.match(decimalOperator)[0] + '.',
+                    formula: f + '.'
+                })
+            }
+        }
+
+    }
+
     render() {
         const {id, test, className} = Calculator;
-        const {state: {currentValue, formula}, initialize, decimal, operators} = this;
+        const {state: {currentValue, formula}, initialize, decimal, operators, handleDecimal} = this;
         return (
             <div id={id} className={className}>
                 <h1 id="test">{test}</h1>
@@ -134,6 +166,7 @@ class Calculator extends React.Component {
                     initialize={initialize}
                     decimal={decimal}
                     operators={operators}
+                    handleDecimal={handleDecimal}
                 />
                 <Author/>
             </div>
