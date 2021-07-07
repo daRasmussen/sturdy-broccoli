@@ -13,6 +13,8 @@ class Calculator extends React.Component {
     static limitInt = 21;
     static isOperator = /[x/+‑]/;
     static isDecimal = /([^.0-9]0|^0)$/;
+    static endsWithOperator = /[x+‑/]$/;
+    static endsWithNegativeSign = /\d[x/+‑]‑$/;
 
     constructor(props) {
         super(props);
@@ -83,10 +85,31 @@ class Calculator extends React.Component {
 
     operators(e) {
         const _ = this;
-        const {state: {formula: f, previousValue: p, evaluated}} = _;
+        const {state: {formula: f, previousValue: p, evaluated: _eval }} = _;
+        const { endsWithOperator, endsWithNegativeSign } = Calculator;
         _.limitCheck(function() {
-            const {limitInt, isOperator, isDecimal} = Calculator;
             const {target: {value: incoming}} = e;
+            _.setState({
+                currentValue: incoming,
+                evaluated: false
+            });
+            if(_eval) {
+                this.setState( { formula: p + incoming })
+            } else if (!endsWithOperator.test(f)) {
+                _.setState({
+                    previousValue: f,
+                    formula: f + incoming
+                });
+            } else if (!endsWithNegativeSign.test(f)) {
+                _.setState({
+                    formula:
+                        (endsWithNegativeSign.test(f + incoming) ? f : p) + incoming
+                });
+            } else if (incoming !== '-') {
+                this.setState({
+                    formula: p + incoming
+                })
+            }
         });
     }
 
