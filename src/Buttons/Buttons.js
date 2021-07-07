@@ -94,7 +94,7 @@ class Buttons extends React.Component {
                 <button
                     id="equals"
                     className={[className, 'operator'].join(" ")}
-                    onClick={this.props.operators}
+                    onClick={this.props.evaluate}
                     value="="
                 >
                     =

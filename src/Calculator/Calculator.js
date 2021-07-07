@@ -16,7 +16,6 @@ class Calculator extends React.Component {
     static endsWithOperator = /[x+‑/]$/;
     static endsWithNegativeSign = /\d[x/+‑]‑$/;
     static decimalOperator = /(-?\d+\.?\d*)$/;
-    _ = this;
 
     constructor(props) {
         super(props);
@@ -154,9 +153,39 @@ class Calculator extends React.Component {
 
     }
 
+    evaluate() {
+        const _ = this;
+        const { endsWithOperator } = Calculator
+        let { state: { formula : f }} = _;
+        _.limitCheck(function() {
+            while(endsWithOperator.test(f)) {
+                f = f.slice(0, -1);
+            }
+            f = f
+                .replace(/x/g, '*')
+                .replace(/-/g, '-')
+                .replace('--', '+0+0+0+0+0+0+')
+            // eslint-disable-next-line no-eval
+            let ans = Math.round(1000000000000 * eval(f)) / 1000000000000;
+            _.setState({
+                currentValue: `${ans}`,
+                formula:
+                    f
+                        .replace(/x/g, '*')
+                        .replace(/-/g, '-')
+                        .replace('--', '+0+0+0+0+0+0+')
+                        .replace(/([x/+])‑/, '$1-')
+                        .replace(/^‑/, '-') + '=' + ans,
+                previousValue: ans,
+                evaluated: true
+
+            })
+        });
+    }
+
     render() {
         const {id, test, className} = Calculator;
-        const {state: {currentValue, formula}, initialize, decimal, operators, handleDecimal} = this;
+        const {state: {currentValue, formula}, initialize, decimal, operators, handleDecimal, evaluate} = this;
         return (
             <div id={id} className={className}>
                 <h1 id="test">{test}</h1>
@@ -167,6 +196,7 @@ class Calculator extends React.Component {
                     decimal={decimal}
                     operators={operators}
                     handleDecimal={handleDecimal}
+                    evaluate={evaluate}
                 />
                 <Author/>
             </div>

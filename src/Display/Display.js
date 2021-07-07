@@ -19,6 +19,7 @@ class Display extends React.Component {
             <div id={id} className={className}>
                 <h1 id="test">{test}</h1>
                 <input type={type} onChange={getCurrentValue} value={currentValue} />
+                {currentValue}
             </div>
         )
     }
