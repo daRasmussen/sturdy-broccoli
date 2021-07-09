@@ -14,7 +14,7 @@ class Calculator extends React.Component {
     static isOperator = /[x/+‑]/;
     static isDecimal = /([^.0-9]0|^0)$/;
     static endsWithOperator = /[x+‑/]$/;
-    static endsWithNegativeSign = /\d[x/+‑]‑$/;
+    static endsWithNegativeSign = /\d[x/+‑]{1}‑$/;
     static decimalOperator = /(-?\d+\.?\d*)$/;
 
     constructor(props) {
@@ -95,11 +95,11 @@ class Calculator extends React.Component {
             } else if (!endsWithNegativeSign.test(f)) {
                 this.setState({
                     formula:
-                        (endsWithNegativeSign.test(f + incoming) ? f : p) + incoming
+                        (endsWithNegativeSign.test(f + incoming) ? p : f) + incoming
                 });
             } else if (incoming !== '-') {
                 this.setState({
-                    formula: p + incoming
+                    formula: f + incoming
                 })
             }
         }
@@ -144,27 +144,28 @@ class Calculator extends React.Component {
 
     evaluate() {
         const { endsWithOperator, limitText } = Calculator
-        let { state: { formula : f }} = this;
         const { state : { currentValue: c, }} = this;
 
         if (c.includes(limitText) === false) {
+            let { state: { formula : f }} = this;
             while(endsWithOperator.test(f)) {
                 f = f.slice(0, -1);
             }
             f = f
                 .replace(/x/g, '*')
                 .replace(/-/g, '-')
-                .replace('--', '+0+0+0+0+0+0+')
+                .replace('--', '+0+0+0+0+0+0+');
             // eslint-disable-next-line no-eval
             let ans = Math.round(1000000000000 * eval(f)) / 1000000000000;
             this.setState({
-                currentValue: `${ans}`,
+                currentValue: ans.toString(),
                 formula:
                     f
                         .replace(/x/g, '*')
                         .replace(/-/g, '-')
                         .replace('--', '+0+0+0+0+0+0+')
-                        .replace(/([x/+])‑/, '$1-')
+                        // eslint-disable-next-line no-useless-escape
+                        .replace(/([x\/+])‑/, '$1-')
                         .replace(/^‑/, '-') + '=' + ans,
                 previousValue: ans,
                 evaluated: true
