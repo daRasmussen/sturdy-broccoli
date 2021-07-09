@@ -29,14 +29,7 @@ class Calculator extends React.Component {
         this.maxWarn = this.maxWarn.bind(this);
         this.operators = this.operators.bind(this);
         this.handleDecimal = this.handleDecimal.bind(this);
-    }
-
-    limitCheck(fn) {
-        const {limitText} = Calculator;
-        const { state: {currentValue}} = this;
-        if (currentValue.includes(limitText) === false) {
-            fn();
-        }
+        this.evaluate = this.evaluate.bind(this);
     }
 
     maxWarn() {
@@ -84,9 +77,9 @@ class Calculator extends React.Component {
     }
 
     operators(e) {
-        const {state: {formula: f, previousValue: p, evaluated: _eval }} = this;
-        const { endsWithOperator, endsWithNegativeSign } = Calculator;
-        this.limitCheck(function() {
+        const {state: {currentValue: c, formula: f, previousValue: p, evaluated: _eval }} = this;
+        const { endsWithOperator, endsWithNegativeSign, limitText } = Calculator;
+        if (c.includes(limitText) === false) {
             const {target: {value: incoming}} = e;
             this.setState({
                 currentValue: incoming,
@@ -109,7 +102,7 @@ class Calculator extends React.Component {
                     formula: p + incoming
                 })
             }
-        });
+        }
     }
 
     initialize() {
@@ -150,9 +143,11 @@ class Calculator extends React.Component {
     }
 
     evaluate() {
-        const { endsWithOperator } = Calculator
+        const { endsWithOperator, limitText } = Calculator
         let { state: { formula : f }} = this;
-        this.limitCheck(function() {
+        const { state : { currentValue: c, }} = this;
+
+        if (c.includes(limitText) === false) {
             while(endsWithOperator.test(f)) {
                 f = f.slice(0, -1);
             }
@@ -175,7 +170,7 @@ class Calculator extends React.Component {
                 evaluated: true
 
             })
-        });
+        }
     }
 
     render() {
@@ -189,9 +184,9 @@ class Calculator extends React.Component {
                 <Buttons
                     initialize={initialize}
                     decimal={decimal}
-                    // operators={operators}
+                    operators={operators}
                     handleDecimal={handleDecimal}
-                    // evaluate={evaluate}
+                    evaluate={evaluate}
                 />
                 <Author/>
             </div>
