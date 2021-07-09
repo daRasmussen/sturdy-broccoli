@@ -32,9 +32,8 @@ class Calculator extends React.Component {
     }
 
     limitCheck(fn) {
-        const _ = this;
         const {limitText} = Calculator;
-        const {state: {currentValue}} = _;
+        const { state: {currentValue}} = this;
         if (currentValue.includes(limitText) === false) {
             fn();
         }
@@ -53,57 +52,55 @@ class Calculator extends React.Component {
     }
 
     decimal(e) {
-        const _ = this;
-        const {state: {formula: f, currentValue: c, evaluated}} = _;
-        _.limitCheck(function () {
-            const {limitInt, isOperator, isDecimal} = Calculator;
+        const {state: {formula: f, currentValue: c, evaluated}} = this;
+        const {limitInt, isOperator, isDecimal, limitText} = Calculator;
+        if (c.includes(limitText) === false) {
             const {target: {value: incoming}} = e;
             const {length} = incoming;
-            _.setState({evaluated: false})
+            this.setState({ evaluated: false})
             if (length > limitInt) {
-                _.maxWarn();
+                this.maxWarn();
             } else if (evaluated) {
-                _.setState({
+                this.setState({
                     currentValue: incoming,
                     formula: incoming !== '0' ? incoming : ''
                 });
             } else {
-                _.setState({
+                this.setState({
                     currentValue: c === '0' || isOperator.test(c)
                         ? incoming
                         : c + incoming,
                     formula:
                         c === '0' && incoming === '0'
                             ? f === ''
-                              ? incoming
-                              : f
+                            ? incoming
+                            : f
                             : isDecimal.test(f)
                             ? f.slice(0, -1) + incoming
                             : f + incoming
                 });
             }
-        });
+        }
     }
 
     operators(e) {
-        const _ = this;
-        const {state: {formula: f, previousValue: p, evaluated: _eval }} = _;
+        const {state: {formula: f, previousValue: p, evaluated: _eval }} = this;
         const { endsWithOperator, endsWithNegativeSign } = Calculator;
-        _.limitCheck(function() {
+        this.limitCheck(function() {
             const {target: {value: incoming}} = e;
-            _.setState({
+            this.setState({
                 currentValue: incoming,
                 evaluated: false
             });
             if(_eval) {
                 this.setState( { formula: p + incoming })
             } else if (!endsWithOperator.test(f)) {
-                _.setState({
+                this.setState({
                     previousValue: f,
                     formula: f + incoming
                 });
             } else if (!endsWithNegativeSign.test(f)) {
-                _.setState({
+                this.setState({
                     formula:
                         (endsWithNegativeSign.test(f + incoming) ? f : p) + incoming
                 });
@@ -126,25 +123,24 @@ class Calculator extends React.Component {
 
     handleDecimal() {
         const { decimalOperator, endsWithOperator } = Calculator;
-        const _ = this;
-        const { state: { currentValue: c, formula: f, evaluated: _eval }} = _;
+        const { state: { currentValue: c, formula: f, evaluated: _eval }} = this;
         if(_eval === true ) {
-            _.setState({
+            this.setState({
                 currentValue: '0',
                 formula: '0.',
                 evaluated: false
             });
         } else if (!c.includes('.') &&!c.includes('Limit')) {
-            _.setState({ evaluated: false });
+            this.setState({ evaluated: false });
             if(c.length > 21) {
-                _.maxWarn();
+                this.maxWarn();
             } else if (endsWithOperator.test(f) || (c === '0' && f === '')) {
-                _.setState({
+                this.setState({
                     currentValue: '0.',
                     formula: f + '0.'
                 });
             } else {
-                _.setState({
+                this.setState({
                     currentValue: f.match(decimalOperator)[0] + '.',
                     formula: f + '.'
                 })
@@ -154,10 +150,9 @@ class Calculator extends React.Component {
     }
 
     evaluate() {
-        const _ = this;
         const { endsWithOperator } = Calculator
-        let { state: { formula : f }} = _;
-        _.limitCheck(function() {
+        let { state: { formula : f }} = this;
+        this.limitCheck(function() {
             while(endsWithOperator.test(f)) {
                 f = f.slice(0, -1);
             }
@@ -167,7 +162,7 @@ class Calculator extends React.Component {
                 .replace('--', '+0+0+0+0+0+0+')
             // eslint-disable-next-line no-eval
             let ans = Math.round(1000000000000 * eval(f)) / 1000000000000;
-            _.setState({
+            this.setState({
                 currentValue: `${ans}`,
                 formula:
                     f
@@ -194,9 +189,9 @@ class Calculator extends React.Component {
                 <Buttons
                     initialize={initialize}
                     decimal={decimal}
-                    operators={operators}
+                    // operators={operators}
                     handleDecimal={handleDecimal}
-                    evaluate={evaluate}
+                    // evaluate={evaluate}
                 />
                 <Author/>
             </div>
