@@ -14,7 +14,7 @@ class Calculator extends React.Component {
     static isOperator = /[x/+‑]/;
     static isDecimal = /([^.0-9]0|^0)$/;
     static endsWithOperator = /[x+‑/]$/;
-    static endsWithNegativeSign = /\d[x/+‑]{1}‑$/;
+    static endsWithNegativeSign = /\d[x/+‑]‑$/;
     static decimalOperator = /(-?\d+\.?\d*)$/;
 
     constructor(props) {
@@ -161,10 +161,10 @@ class Calculator extends React.Component {
                 currentValue: ans.toString(),
                 formula:
                     f
-                        .replace(/\\*/g, '⋅')
+                        .replace(/\*/g, '⋅')
                         .replace(/-/g, '‑')
                         .replace('+0+0+0+0+0+0+', '‑-')
-                        .replace(/(x|\/|\\+)‑/, '$1-')
+                        .replace(/([x/+])‑/, '$1-')
                         .replace(/^‑/, '-') + '=' + ans,
                 previousValue: ans,
                 evaluated: true
