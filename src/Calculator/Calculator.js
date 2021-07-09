@@ -153,7 +153,7 @@ class Calculator extends React.Component {
             }
             f = f
                 .replace(/x/g, '*')
-                .replace(/-/g, '-')
+                .replace(/‑/g, '-')
                 .replace('--', '+0+0+0+0+0+0+');
             // eslint-disable-next-line no-eval
             let ans = Math.round(1000000000000 * eval(f)) / 1000000000000;
@@ -161,11 +161,10 @@ class Calculator extends React.Component {
                 currentValue: ans.toString(),
                 formula:
                     f
-                        .replace(/x/g, '*')
-                        .replace(/-/g, '-')
-                        .replace('--', '+0+0+0+0+0+0+')
-                        // eslint-disable-next-line no-useless-escape
-                        .replace(/([x\/+])‑/, '$1-')
+                        .replace(/\\*/g, '⋅')
+                        .replace(/-/g, '‑')
+                        .replace('+0+0+0+0+0+0+', '‑-')
+                        .replace(/(x|\/|\\+)‑/, '$1-')
                         .replace(/^‑/, '-') + '=' + ans,
                 previousValue: ans,
                 evaluated: true
